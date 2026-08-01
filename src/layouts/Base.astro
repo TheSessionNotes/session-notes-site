@@ -1,0 +1,42 @@
+---
+const { title = 'The Session Notes', current = '' } = Astro.props;
+import '../styles/global.css';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrap">
+      <div class="masthead-top">
+        <span>Interviews from across the music world</span>
+        <span>2026</span>
+      </div>
+      <a href="/" class="logo">The Session <em>Notes</em></a>
+      <div class="tagline">Conversations with the people who make music work — the players, the teachers, the labels, and everyone in between.</div>
+      <nav>
+        <a href="/" aria-current={current === 'home' ? 'page' : undefined}>Latest</a>
+        <a href="/interviews" aria-current={current === 'interviews' ? 'page' : undefined}>Interviews</a>
+        <a href="/about" aria-current={current === 'about' ? 'page' : undefined}>About</a>
+        <a href="/subscribe" aria-current={current === 'subscribe' ? 'page' : undefined}>Subscribe</a>
+      </nav>
+    </div>
+  </header>
+
+  <slot />
+
+  <div class="wrap">
+    <footer>
+      <span>The Session Notes</span>
+      <span>An interview project · 2026</span>
+    </footer>
+  </div>
+</body>
+</html>

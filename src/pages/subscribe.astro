@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Subscribe — The Session Notes" current="subscribe">
+  <section class="subscribe" style="margin-top:0">
+    <div class="wrap inner">
+      <div class="eyebrow">The mailing list</div>
+      <h2>A new interview every two weeks.</h2>
+      <p>No spam, no filler — just the next conversation, sent to your inbox the morning it goes up.</p>
+
+      <!--
+        HOW TO MAKE THIS REAL (2 minutes, free):
+        1. Make a free account at buttondown.com (or mailerlite.com).
+        2. They'll give you a form embed. Replace YOUR_USERNAME below with your Buttondown username,
+           OR paste their full embed code in place of this whole <form>.
+        3. That's it — subscribers now go straight to your email list.
+      -->
+      <form
+        class="form"
+        action="https://buttondown.com/api/emails/embed-subscribe/YOUR_USERNAME"
+        method="post"
+        target="popupwindow"
+      >
+        <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</Base>
