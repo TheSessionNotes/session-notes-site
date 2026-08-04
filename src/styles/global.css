@@ -151,8 +151,7 @@ footer{padding:36px 0;border-top:1px solid var(--line);font-family:'IBM Plex Mon
 .hero-a-left .hero-photo:hover{opacity:.94}
 .hero-a-left .sub{font-size:18px;line-height:1.55;color:var(--soft);max-width:560px}
 .hero-a-left .hero-meta{margin-top:22px}
-.hero-a-grid .qcard{align-self:stretch;display:flex;flex-direction:column}
-.hero-a-grid .qcard blockquote{flex:1}
+.hero-a-grid .qcard{align-self:start}
 
 @media(max-width:820px){
   .hero-a-grid{grid-template-columns:1fr;gap:28px}
