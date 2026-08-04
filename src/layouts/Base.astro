@@ -8,6 +8,8 @@ import '../styles/global.css';
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800;900&family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -16,6 +18,9 @@ import '../styles/global.css';
   <header class="wrap">
     <div class="top">
       <a href="/" class="brand">The Session <b>Notes</b></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false" onclick="document.body.classList.toggle('nav-open'); this.setAttribute('aria-expanded', document.body.classList.contains('nav-open'))">
+        <span></span><span></span><span></span>
+      </button>
       <nav class="nav">
         <a href="/" aria-current={current === 'home' ? 'page' : undefined}>Latest</a>
         <a href="/interviews" aria-current={current === 'interviews' ? 'page' : undefined}>Interviews</a>
