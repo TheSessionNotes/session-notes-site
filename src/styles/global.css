@@ -93,3 +93,67 @@ footer{padding:36px 0;border-top:1px solid var(--line);font-family:'IBM Plex Mon
   .row .rl{grid-column:2;text-align:left;margin-top:2px}
   .nav{gap:15px}
 }
+
+/* ---------- Interview hero + inline media (added for rich posts) ---------- */
+.hero-img-wrap{margin:28px 0 4px}
+.hero-img{width:100%;height:auto;display:block;border-radius:2px;aspect-ratio:16/9;object-fit:cover}
+.prose figure{margin:36px 0}
+.prose figure img{width:100%;height:auto;display:block;border-radius:2px}
+.prose figure figcaption{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut);margin-top:10px}
+/* portrait inline image sits narrower + centered */
+.prose .portrait{max-width:420px;margin-left:auto;margin-right:auto}
+/* big cobalt section-break statement */
+.prose .statement{font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:800;font-size:clamp(24px,3.2vw,32px);line-height:1.1;letter-spacing:-.015em;color:var(--blue);margin:42px 0;padding:0}
+/* a labeled lead-in inside prose */
+.prose h2{font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.1;letter-spacing:-.01em;margin:40px 0 14px}
+
+/* inline hero image within a post body (smaller, sharp, sits after first paragraph) */
+.prose .hero-inline{margin:30px 0}
+.prose .hero-inline img{width:100%;height:auto;display:block;border-radius:2px;aspect-ratio:16/9;object-fit:cover}
+
+/* ---------- Homepage hero photo ---------- */
+.hero-photo{display:block;margin:22px 0 24px}
+.hero-photo img{width:100%;height:auto;display:block;border-radius:2px;aspect-ratio:16/10;object-fit:cover}
+.hero-photo:hover{opacity:.94}
+
+/* ---------- Interviews grid ---------- */
+.grid-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:34px 28px;padding-bottom:64px}
+.gcard{display:flex;flex-direction:column;text-decoration:none}
+.gcard-img{position:relative;overflow:hidden;border-radius:2px;aspect-ratio:3/4;background:#EEE}
+.gcard-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.gcard:hover .gcard-img img{transform:scale(1.03)}
+.gcard-no{position:absolute;top:12px;left:12px;font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:900;font-size:15px;color:#fff;background:var(--blue);padding:4px 9px;border-radius:2px;letter-spacing:.02em}
+.gcard-blank{aspect-ratio:3/4;border:2px solid var(--ink);border-radius:2px;display:flex;align-items:center;justify-content:center;background:var(--paper)}
+.gcard-blank .gcard-no-lg{font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:900;font-size:64px;color:var(--blue);opacity:.9}
+.gcard.no-img:hover .gcard-blank{background:#F4F3EE}
+.gcard-body{padding-top:14px}
+.gcard-role{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:8px}
+.gcard-body h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:19px;line-height:1.14;letter-spacing:-.01em;color:var(--ink)}
+.gcard:hover .gcard-body h3{color:var(--blue)}
+
+@media(max-width:820px){
+  .grid-cards{grid-template-columns:1fr 1fr;gap:24px 18px}
+}
+@media(max-width:520px){
+  .grid-cards{grid-template-columns:1fr}
+}
+
+/* ---------- Homepage hero — Option A (headline top, photo + quote side by side) ---------- */
+.hero-a{padding:52px 0 44px;border-bottom:2px solid var(--ink)}
+.hero-a-top{margin-bottom:30px}
+.hero-a-top .eyb{margin-bottom:16px}
+.hero-a-top h1{font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:800;font-size:clamp(32px,4.6vw,50px);line-height:1.0;letter-spacing:-.02em;max-width:16ch}
+.hero-a-top h1 a{text-decoration:none}
+.hero-a-top h1 a:hover{color:var(--blue)}
+.hero-a-grid{display:grid;grid-template-columns:1fr 360px;gap:44px;align-items:start}
+.hero-a-left .hero-photo{display:block;margin:0 0 22px}
+.hero-a-left .hero-photo img{width:100%;height:auto;display:block;border-radius:2px;aspect-ratio:16/11;object-fit:cover}
+.hero-a-left .hero-photo:hover{opacity:.94}
+.hero-a-left .sub{font-size:18px;line-height:1.55;color:var(--soft);max-width:560px}
+.hero-a-left .hero-meta{margin-top:22px}
+.hero-a-grid .qcard{align-self:stretch;display:flex;flex-direction:column}
+.hero-a-grid .qcard blockquote{flex:1}
+
+@media(max-width:820px){
+  .hero-a-grid{grid-template-columns:1fr;gap:28px}
+}

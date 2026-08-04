@@ -1,18 +1,30 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 const all = (await getCollection('interviews')).sort((a, b) => b.data.number - a.data.number);
 const pad = (n) => String(n).padStart(2, '0');
 ---
 <Base title="Interviews — The Session Notes" current="interviews">
   <div class="wrap">
-    <section class="arch" style="padding-top:44px">
-      <div class="arch-h">Every Interview — {all.length} total</div>
+    <div class="arch-h" style="margin-top:44px">Every Interview — {all.length} total</div>
+    <section class="grid-cards">
       {all.map(i => (
-        <a class="row" href={`/interviews/${i.id}`}>
-          <div class="num">{pad(i.data.number)}</div>
-          <div class="ti">{i.data.title}</div>
-          <div class="rl">{i.data.role}</div>
+        <a class={`gcard ${i.data.cardImage ? 'has-img' : 'no-img'}`} href={`/interviews/${i.id}`}>
+          {i.data.cardImage ? (
+            <div class="gcard-img">
+              <Image src={i.data.cardImage} alt={i.data.cardAlt ?? i.data.title} widths={[300, 500]} sizes="(max-width: 700px) 100vw, 360px" />
+              <span class="gcard-no">{pad(i.data.number)}</span>
+            </div>
+          ) : (
+            <div class="gcard-blank">
+              <span class="gcard-no-lg">{pad(i.data.number)}</span>
+            </div>
+          )}
+          <div class="gcard-body">
+            <div class="gcard-role">{i.data.role}</div>
+            <h3>{i.data.title}</h3>
+          </div>
         </a>
       ))}
     </section>
