@@ -5,48 +5,41 @@ import { getCollection } from 'astro:content';
 const all = (await getCollection('interviews')).sort((a, b) => b.data.number - a.data.number);
 const featured = all.find(i => i.data.featured) ?? all[0];
 const rest = all.filter(i => i.id !== featured?.id);
+const pad = (n) => String(n).padStart(2, '0');
 ---
 <Base title="The Session Notes" current="home">
   <div class="wrap">
     {featured && (
-      <section class="feature">
+      <section class="hero">
         <div>
-          <div class="eyebrow">Latest interview</div>
+          <div class="eyb">Interview {pad(featured.data.number)} / {featured.data.role}</div>
           <h1><a href={`/interviews/${featured.id}`}>{featured.data.title}</a></h1>
-          <p class="standfirst">{featured.data.intro}</p>
-          <div class="byline">Interview No. {String(featured.data.number).padStart(2,'0')} — {featured.data.date}</div>
-          <a class="read-link" href={`/interviews/${featured.id}`}>Read the interview →</a>
+          <p class="sub">{featured.data.intro}</p>
+          <div class="hero-meta">RECORDED {featured.data.date.toUpperCase()} — <a href={`/interviews/${featured.id}`}>READ THE INTERVIEW →</a></div>
         </div>
         {featured.data.pullquote && (
-          <div class="pullbox">
-            <span class="mark">&ldquo;</span>
+          <div class="qcard">
+            <div class="n">{pad(featured.data.number)}</div>
             <blockquote>{featured.data.pullquote}</blockquote>
-            {featured.data.pullquoteBy && <cite>— {featured.data.pullquoteBy}</cite>}
+            {featured.data.pullquoteBy && <cite>{featured.data.pullquoteBy}</cite>}
           </div>
         )}
       </section>
     )}
 
-    <div class="sec-label">
-      <span class="t">The Archive</span>
-      <div class="rule"></div>
-      <div class="count">{all.length} {all.length === 1 ? 'interview' : 'interviews'}</div>
-    </div>
-
-    <section class="grid">
+    <section class="arch">
+      <div class="arch-h">The Archive — {all.length} {all.length === 1 ? 'interview' : 'interviews'}</div>
       {rest.map(i => (
-        <a class="card" href={`/interviews/${i.id}`}>
-          <div class="no">No. {String(i.data.number).padStart(2,'0')}</div>
-          <div class="role">{i.data.role}</div>
-          <h3>{i.data.title}</h3>
-          <p>{i.data.intro}</p>
+        <a class="row" href={`/interviews/${i.id}`}>
+          <div class="num">{pad(i.data.number)}</div>
+          <div class="ti">{i.data.title}</div>
+          <div class="rl">{i.data.role}</div>
         </a>
       ))}
-      <a class="card" href="/about" style="border-top-color:var(--amber)">
-        <div class="no" style="color:var(--slate)">Next</div>
-        <div class="role">Coming soon</div>
-        <h3>Know someone worth interviewing?</h3>
-        <p>Every conversation ends with one question: who should I talk to next?</p>
+      <a class="row next" href="/about">
+        <div class="num">→</div>
+        <div class="ti">Know someone worth interviewing?</div>
+        <div class="rl">Get in touch</div>
       </a>
     </section>
   </div>

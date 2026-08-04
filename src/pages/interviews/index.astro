@@ -2,21 +2,17 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 const all = (await getCollection('interviews')).sort((a, b) => b.data.number - a.data.number);
+const pad = (n) => String(n).padStart(2, '0');
 ---
 <Base title="Interviews — The Session Notes" current="interviews">
   <div class="wrap">
-    <div class="sec-label">
-      <span class="t">Every Interview</span>
-      <div class="rule"></div>
-      <div class="count">{all.length} total</div>
-    </div>
-    <section class="grid">
+    <section class="arch" style="padding-top:44px">
+      <div class="arch-h">Every Interview — {all.length} total</div>
       {all.map(i => (
-        <a class="card" href={`/interviews/${i.id}`}>
-          <div class="no">No. {String(i.data.number).padStart(2,'0')}</div>
-          <div class="role">{i.data.role}</div>
-          <h3>{i.data.title}</h3>
-          <p>{i.data.intro}</p>
+        <a class="row" href={`/interviews/${i.id}`}>
+          <div class="num">{pad(i.data.number)}</div>
+          <div class="ti">{i.data.title}</div>
+          <div class="rl">{i.data.role}</div>
         </a>
       ))}
     </section>

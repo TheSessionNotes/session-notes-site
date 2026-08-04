@@ -10,18 +10,19 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
+const pad = (n) => String(n).padStart(2, '0');
 ---
 <Base title={`${d.title} — The Session Notes`}>
   <div class="wrap">
     <article class="article">
-      <div class="kicker">Interview No. {String(d.number).padStart(2,'0')} · {d.role}</div>
+      <div class="kicker">Interview {pad(d.number)} / {d.role}</div>
       <h1>{d.title}</h1>
-      <div class="meta">{d.date} · Conversation edited for length and clarity</div>
+      <div class="meta">Recorded {d.date} · Edited for length and clarity</div>
       <p class="intro">{d.intro}</p>
       <div class="prose">
         <Content />
       </div>
-      <a class="back" href="/">← Back to all interviews</a>
+      <a class="back" href="/">← All interviews</a>
     </article>
   </div>
 </Base>
