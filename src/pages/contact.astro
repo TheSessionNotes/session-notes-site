@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import damonSmiling from '../assets/about/damon-smiling.jpg';
+---
+<Base title="Contact — The Session Notes" current="contact">
+  <div class="wrap">
+    <section class="about">
+      <div class="kicker">Contact</div>
+      <h1>Know someone worth interviewing?</h1>
+      <p>If you work in music and would be up for a conversation, or you know someone whose story should be told, send a note. Artists, producers, engineers, teachers, managers, bookers, label folks — anyone doing the real work.</p>
+
+      <figure class="about-photo">
+        <Image src={damonSmiling} alt="Damon Uyehara" widths={[600, 1000, 1400]} sizes="(max-width: 760px) 100vw, 720px" />
+      </figure>
+
+      <!--
+        HOW THIS FORM WORKS (FormSubmit — no account needed):
+        The first time someone submits, FormSubmit emails thesessionnotes@outlook.com
+        asking you to confirm. Click that link once, and from then on every submission
+        lands in your inbox automatically.
+      -->
+      <form class="contact-form" action="https://formsubmit.co/thesessionnotes@outlook.com" method="POST">
+        <input type="hidden" name="_subject" value="New message from The Session Notes" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+
+        <label>
+          <span>Your name</span>
+          <input type="text" name="name" required />
+        </label>
+
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required />
+        </label>
+
+        <label>
+          <span>Who are you / who should I talk to?</span>
+          <input type="text" name="role" placeholder="e.g. drummer, manager, or a person to introduce" />
+        </label>
+
+        <label>
+          <span>Message</span>
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+
+        <button type="submit">Send message</button>
+      </form>
+
+      <p class="contact-alt">Prefer email? Reach out directly at <a class="link" href="mailto:thesessionnotes@outlook.com">thesessionnotes@outlook.com</a>.</p>
+
+      <a class="back" href="/">← Back home</a>
+    </section>
+  </div>
+</Base>

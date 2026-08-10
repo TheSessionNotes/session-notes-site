@@ -1,0 +1,20 @@
+---
+// Usage: <YouTubeEmbed id="dxDhYgfO7VQ" start={59} title="..." />
+const { id, start, title = 'YouTube video player' } = Astro.props;
+const src = `https://www.youtube.com/embed/${id}${start ? `?start=${start}` : ''}`;
+---
+<div class="yt-embed">
+  <iframe
+    src={src}
+    title={title}
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+    loading="lazy"
+  ></iframe>
+</div>
+<style>
+  .yt-embed{margin:34px 0;}
+  .yt-embed iframe{width:100%;aspect-ratio:16/9;height:auto;display:block;border-radius:2px;}
+</style>
