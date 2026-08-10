@@ -228,3 +228,14 @@ body.nav-open .nav-toggle span:nth-child(3){ transform:translateY(-7px) rotate(-
 .contact-form button:hover{background:#142CA8}
 .contact-alt{font-size:17px;color:var(--mut)}
 .contact-alt .link{color:var(--blue);border-bottom:1px solid var(--blue);font-weight:600}
+
+/* ---------- Form status + field errors (Formspree) ---------- */
+.form-status{display:none;margin:28px 0 0;padding:16px 18px;border-radius:2px;font-size:17px;line-height:1.5}
+.form-status:not(:empty){display:block}
+[data-fs-success]:not(:empty){background:var(--blue);color:#fff;font-weight:500}
+.form-status--error:not(:empty){background:#FDECEC;color:#8A1F1F;border:1px solid #F3C9C9}
+.field-error{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:#B02B2B}
+.field-error:empty{display:none}
+.contact-form input[aria-invalid="true"],
+.contact-form textarea[aria-invalid="true"]{border-color:#B02B2B}
+.contact-form button[disabled]{opacity:.6;cursor:default}

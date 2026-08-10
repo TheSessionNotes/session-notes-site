@@ -1,7 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import { Image } from 'astro:assets';
-import damonSmiling from '../assets/about/damon-smiling.jpg';
 ---
 <Base title="Contact — The Session Notes" current="contact">
   <div class="wrap">
@@ -10,39 +8,35 @@ import damonSmiling from '../assets/about/damon-smiling.jpg';
       <h1>Know someone worth interviewing?</h1>
       <p>If you work in music and would be up for a conversation, or you know someone whose story should be told, send a note. Artists, producers, engineers, teachers, managers, bookers, label folks — anyone doing the real work.</p>
 
+      <div class="form-status" data-fs-success></div>
+      <div class="form-status form-status--error" data-fs-error></div>
 
-      <!--
-        HOW THIS FORM WORKS (FormSubmit — no account needed):
-        The first time someone submits, FormSubmit emails thesessionnotes@outlook.com
-        asking you to confirm. Click that link once, and from then on every submission
-        lands in your inbox automatically.
-      -->
-      <form class="contact-form" action="https://formsubmit.co/thesessionnotes@outlook.com" method="POST">
-        <input type="hidden" name="_subject" value="New message from The Session Notes" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_template" value="table" />
-
+      <form id="contact-form" class="contact-form">
         <label>
           <span>Your name</span>
-          <input type="text" name="name" required />
+          <input type="text" id="name" name="name" data-fs-field required />
+          <span class="field-error" data-fs-error="name"></span>
         </label>
 
         <label>
           <span>Email</span>
-          <input type="email" name="email" required />
+          <input type="email" id="email" name="email" data-fs-field required />
+          <span class="field-error" data-fs-error="email"></span>
         </label>
 
         <label>
           <span>Who are you / who should I talk to?</span>
-          <input type="text" name="role" placeholder="e.g. drummer, manager, or a person to introduce" />
+          <input type="text" id="role" name="role" data-fs-field placeholder="e.g. drummer, manager, or a person to introduce" />
+          <span class="field-error" data-fs-error="role"></span>
         </label>
 
         <label>
           <span>Message</span>
-          <textarea name="message" rows="6" required></textarea>
+          <textarea id="message" name="message" rows="6" data-fs-field required></textarea>
+          <span class="field-error" data-fs-error="message"></span>
         </label>
 
-        <button type="submit">Send message</button>
+        <button type="submit" data-fs-submit-btn>Send message</button>
       </form>
 
       <p class="contact-alt">Prefer email? Reach out directly at <a class="link" href="mailto:thesessionnotes@outlook.com">thesessionnotes@outlook.com</a>.</p>
@@ -50,4 +44,10 @@ import damonSmiling from '../assets/about/damon-smiling.jpg';
       <a class="back" href="/">← Back home</a>
     </section>
   </div>
+
+  <script is:inline>
+    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    formspree('initForm', { formElement: '#contact-form', formId: 'xwlelbnp' });
+  </script>
+  <script is:inline src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </Base>
