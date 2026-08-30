@@ -8,7 +8,12 @@ const featured = all.find(i => i.data.featured) ?? all[0];
 const rest = all.filter(i => i.id !== featured?.id);
 const pad = (n) => String(n).padStart(2, '0');
 ---
-<Base title="The Session Notes" current="home">
+<Base
+  title="The Session Notes — interviews with the people who make music work"
+  current="home"
+  description="An interview publication about the working music world. Conversations with artists, drummers, guitarists, engineers, and industry people about how they got started and what a music career actually takes."
+  image={featured?.data.heroImage}
+>
   <div class="wrap">
     {featured && (
       <section class="hero-a">

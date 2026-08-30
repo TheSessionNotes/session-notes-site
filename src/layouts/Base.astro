@@ -1,6 +1,39 @@
 ---
-const { title = 'The Session Notes', current = '' } = Astro.props;
+const {
+  title = 'The Session Notes',
+  current = '',
+  description = 'Interviews with the people who make music work: players, teachers, engineers, bookers, managers, and label people talking about how they got started and what a music career actually takes.',
+  image,                 // optional: an imported image object for social previews
+  type = 'website',      // 'article' on interview pages
+  publishedDate,         // optional: for article structured data
+  authorName = 'Damon Uyehara',
+} = Astro.props;
+
 import '../styles/global.css';
+
+const siteName = 'The Session Notes';
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = image ? new URL(image.src, Astro.site).href : new URL('/favicon.svg', Astro.site).href;
+
+const schema = type === 'article'
+  ? {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      headline: title,
+      description,
+      image: ogImage,
+      datePublished: publishedDate,
+      author: { "@type": "Person", name: authorName },
+      publisher: { "@type": "Organization", name: siteName },
+      mainEntityOfPage: canonical,
+    }
+  : {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: siteName,
+      url: Astro.site?.href,
+      description,
+    };
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -8,11 +41,32 @@ import '../styles/global.css';
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta name="author" content={authorName} />
+
+  <!-- Open Graph (link previews on iMessage, Discord, Facebook, LinkedIn) -->
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:type" content={type} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+
+  <!-- Twitter/X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800;900&family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </head>
 <body>
   <header class="wrap">

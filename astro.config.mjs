@@ -1,7 +1,8 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://your-domain.pages.dev', // change this when you have a domain
-  integrations: [mdx()],
+  site: 'https://thesessionnotes.co',
+  integrations: [mdx(), sitemap()],
 });
