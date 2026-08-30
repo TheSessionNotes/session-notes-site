@@ -1,0 +1,15 @@
+---
+// Usage: <TikTokEmbed url="..." videoId="..." /> — official embed markup
+const { url, videoId } = Astro.props;
+---
+<div class="tt-embed">
+  <blockquote
+    class="tiktok-embed"
+    cite={url}
+    data-video-id={videoId}
+    style="max-width:605px; min-width:325px; margin:0 auto;">
+    <section></section>
+  </blockquote>
+</div>
+<script async src="https://www.tiktok.com/embed.js"></script>
+<style>.tt-embed{margin:34px 0; display:flex; justify-content:center;}</style>
