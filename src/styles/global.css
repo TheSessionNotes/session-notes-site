@@ -126,7 +126,7 @@ footer{padding:36px 0;border-top:1px solid var(--line);font-family:'IBM Plex Mon
 .hero-a{padding:52px 0 44px;border-bottom:2px solid var(--ink)}
 .hero-a-top{margin-bottom:30px}
 .hero-a-top .eyb{margin-bottom:16px}
-.hero-a-top h1{font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:800;font-size:clamp(34px,5vw,54px);line-height:1.02;letter-spacing:-.02em;max-width:26ch}
+.hero-a-top h1{font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:800;font-size:clamp(34px,5vw,54px);line-height:1.02;letter-spacing:-.02em;max-width:30ch}
 .hero-a-top h1 a{text-decoration:none}
 .hero-a-top h1 a:hover{color:var(--blue)}
 .hero-a-grid{display:grid;grid-template-columns:1fr 360px;gap:44px;align-items:start}
