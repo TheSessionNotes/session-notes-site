@@ -1,13 +1,13 @@
 ---
-// Usage: <InstagramEmbed url="https://www.instagram.com/reel/XXXX/" />
-const { url } = Astro.props;
+// Usage: <InstagramEmbed url="https://www.instagram.com/reel/XXXX/" caption={false} />  (caption defaults to true)
+const { url, caption = true } = Astro.props;
 // Normalize: ensure trailing slash, strip query params
 const clean = url.split('?')[0].replace(/\/?$/, '/');
 ---
 <div class="ig-embed">
   <blockquote
     class="instagram-media"
-    data-instgrm-captioned
+    data-instgrm-captioned={caption ? '' : undefined}
     data-instgrm-permalink={clean}
     data-instgrm-version="14"
     style="background:#FFF; border:0; margin:0 auto; max-width:540px; width:100%;">
