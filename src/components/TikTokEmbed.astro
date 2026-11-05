@@ -1,15 +1,23 @@
 ---
-// Usage: <TikTokEmbed url="..." videoId="..." /> — official embed markup
-const { url, videoId } = Astro.props;
+// Usage: <TikTokEmbed url="..." videoId="..." />
+// Uses TikTok's direct player iframe (same as their oEmbed output) instead of
+// blockquote + embed.js, which is often blocked by tracker/ad blockers and
+// privacy browsers and then leaves an empty box.
+const { url, videoId, title = 'TikTok video' } = Astro.props;
 ---
 <div class="tt-embed">
-  <blockquote
-    class="tiktok-embed"
-    cite={url}
-    data-video-id={videoId}
-    style="max-width:605px; min-width:325px; margin:0 auto;">
-    <section></section>
-  </blockquote>
+  <iframe
+    src={`https://www.tiktok.com/player/v1/${videoId}?music_info=1&description=1`}
+    title={title}
+    width="325" height="578"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+    loading="lazy"></iframe>
+  <p class="tt-link"><a href={url} target="_blank" rel="noopener">Watch on TikTok</a></p>
 </div>
-<script async src="https://www.tiktok.com/embed.js"></script>
-<style>.tt-embed{margin:34px 0; display:flex; justify-content:center;}</style>
+<style>
+.tt-embed{margin:34px 0; display:flex; flex-direction:column; align-items:center;}
+.tt-embed iframe{max-width:100%; border:0; border-radius:8px;}
+.tt-link{margin:8px 0 0; font-size:.9em;}
+</style>
