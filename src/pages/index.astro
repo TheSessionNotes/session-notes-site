@@ -4,53 +4,104 @@ import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 
 const all = (await getCollection('interviews')).sort((a, b) => b.data.number - a.data.number);
-const featured = all.find(i => i.data.featured) ?? all[0];
-const rest = all.filter(i => i.id !== featured?.id);
+const newest = all[0];
+const secondary = all.slice(1, 4);
+const rest = all.slice(4);
 const pad = (n) => String(n).padStart(2, '0');
 ---
 <Base
   title="The Session Notes — interviews with the people who make music work"
   current="home"
   description="An interview publication about the working music world. Conversations with artists, drummers, guitarists, engineers, and industry people about how they got started and what a music career actually takes."
-  image={featured?.data.heroImage}
+  image={newest?.data.heroImage}
 >
   <div class="wrap">
-    {featured && (
-      <section class="hero-a">
-        <div class="hero-a-top">
-          <div class="eyb">Interview {pad(featured.data.number)} / {featured.data.role}</div>
-          <h1><a href={`/interviews/${featured.id}`}>{featured.data.title}</a></h1>
-        </div>
-        <div class="hero-a-grid">
-          <div class="hero-a-left">
-            {featured.data.heroImage && (
-              <a href={`/interviews/${featured.id}`} class="hero-photo">
-                <Image src={featured.data.heroImage} alt={featured.data.heroAlt ?? featured.data.title} widths={[500, 800, 1100]} sizes="(max-width: 820px) 100vw, 640px" />
+    {newest && (
+      <section class="home-latest">
+        <div class="arch-h">Latest interviews</div>
+        <div class="home-feature">
+          <article class="home-primary">
+            <div class="eyb">Interview {pad(newest.data.number)} / {newest.data.role}</div>
+            <h1><a href={`/interviews/${newest.id}`}>{newest.data.title}</a></h1>
+            {newest.data.heroImage && (
+              <a href={`/interviews/${newest.id}`} class="hero-photo">
+                <Image
+                  src={newest.data.heroImage}
+                  alt={newest.data.heroAlt ?? newest.data.title}
+                  widths={[500, 800, 1100]}
+                  sizes="(max-width: 820px) 100vw, 640px"
+                />
               </a>
             )}
-            <p class="sub">{featured.data.intro}</p>
-            <div class="hero-meta">RECORDED {featured.data.date.toUpperCase()} — <a href={`/interviews/${featured.id}`}>READ THE INTERVIEW →</a></div>
-          </div>
-          {featured.data.pullquote && (
-            <div class="qcard">
-              <div class="n">{pad(featured.data.number)}</div>
-              <blockquote>{featured.data.pullquote}</blockquote>
-              {featured.data.pullquoteBy && <cite>{featured.data.pullquoteBy}</cite>}
+            <p class="sub">{newest.data.intro}</p>
+            <div class="hero-meta">
+              RECORDED {newest.data.date.toUpperCase()}
+              {' · '}
+              <a href={`/interviews/${newest.id}`}>READ THE INTERVIEW →</a>
             </div>
-          )}
+          </article>
+
+          <aside class="home-secondary" aria-label="More featured interviews">
+            {secondary.map(i => (
+              <a class="feat-card" href={`/interviews/${i.id}`}>
+                {i.data.cardImage ? (
+                  <div class="feat-card-img">
+                    <Image
+                      src={i.data.cardImage}
+                      alt={i.data.cardAlt ?? i.data.title}
+                      widths={[200, 360]}
+                      sizes="(max-width: 820px) 120px, 160px"
+                    />
+                    <span class="feat-card-no">{pad(i.data.number)}</span>
+                  </div>
+                ) : (
+                  <div class="feat-card-blank">
+                    <span class="feat-card-no">{pad(i.data.number)}</span>
+                  </div>
+                )}
+                <div class="feat-card-body">
+                  <div class="feat-card-role">{i.data.role}</div>
+                  <h2>{i.data.title}</h2>
+                </div>
+              </a>
+            ))}
+          </aside>
         </div>
       </section>
     )}
 
-    <section class="arch">
-      <div class="arch-h">The Archive — {all.length} {all.length === 1 ? 'interview' : 'interviews'}</div>
-      {rest.map(i => (
-        <a class="row" href={`/interviews/${i.id}`}>
-          <div class="num">{pad(i.data.number)}</div>
-          <div class="ti">{i.data.title}</div>
-          <div class="rl">{i.data.role}</div>
-        </a>
-      ))}
+    {rest.length > 0 && (
+      <section class="home-more">
+        <div class="arch-h">More interviews</div>
+        <div class="grid-cards">
+          {rest.map(i => (
+            <a class={`gcard ${i.data.cardImage ? 'has-img' : 'no-img'}`} href={`/interviews/${i.id}`}>
+              {i.data.cardImage ? (
+                <div class="gcard-img">
+                  <Image
+                    src={i.data.cardImage}
+                    alt={i.data.cardAlt ?? i.data.title}
+                    widths={[300, 500]}
+                    sizes="(max-width: 700px) 100vw, 360px"
+                  />
+                  <span class="gcard-no">{pad(i.data.number)}</span>
+                </div>
+              ) : (
+                <div class="gcard-blank">
+                  <span class="gcard-no-lg">{pad(i.data.number)}</span>
+                </div>
+              )}
+              <div class="gcard-body">
+                <div class="gcard-role">{i.data.role}</div>
+                <h3>{i.data.title}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="arch home-cta">
       <a class="row next" href="/contact">
         <div class="num">→</div>
         <div class="ti">Know someone worth interviewing?</div>

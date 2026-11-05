@@ -207,3 +207,86 @@ body.nav-open .nav-toggle span:nth-child(3){ transform:translateY(-7px) rotate(-
 .contact-form input[aria-invalid="true"],
 .contact-form textarea[aria-invalid="true"]{border-color:#B02B2B}
 .contact-form button[disabled]{opacity:.6;cursor:default}
+
+/* Homepage: multi-interview feature */
+.home-latest{padding:44px 0 0}
+.home-feature{
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:40px;
+  align-items:start;
+  padding-bottom:48px;
+  border-bottom:2px solid var(--ink);
+}
+.home-primary .eyb{margin-bottom:16px}
+.home-primary h1{
+  font-family:'Archivo Expanded','Archivo',sans-serif;
+  font-weight:800;
+  font-size:clamp(28px,4.2vw,46px);
+  line-height:1.04;
+  letter-spacing:-.02em;
+  margin-bottom:22px;
+  max-width:28ch;
+}
+.home-primary h1 a{text-decoration:none}
+.home-primary h1 a:hover{color:var(--blue)}
+.home-primary .hero-photo{display:block;margin:0 0 22px}
+.home-primary .hero-photo img{
+  width:100%;height:auto;display:block;border-radius:2px;
+  aspect-ratio:16/11;object-fit:cover;
+}
+.home-primary .hero-photo:hover{opacity:.94}
+.home-primary .sub{font-size:18px;line-height:1.55;color:var(--soft);max-width:560px}
+.home-primary .hero-meta{margin-top:22px}
+
+.home-secondary{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.feat-card{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:18px;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+  align-items:center;
+  text-decoration:none;
+}
+.feat-card-img{
+  position:relative;overflow:hidden;border-radius:2px;
+  aspect-ratio:3/4;background:#EEE;
+}
+.feat-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.feat-card:hover .feat-card-img img{transform:scale(1.03)}
+.feat-card-no{
+  position:absolute;top:8px;left:8px;
+  font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:900;font-size:12px;
+  color:#fff;background:var(--blue);padding:3px 7px;border-radius:2px;letter-spacing:.02em;
+}
+.feat-card-blank{
+  aspect-ratio:3/4;border:2px solid var(--ink);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;background:var(--paper);
+  position:relative;
+}
+.feat-card-blank .feat-card-no{position:static;background:transparent;color:var(--blue);font-size:22px;padding:0}
+.feat-card-body{min-width:0}
+.feat-card-role{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--mut);margin-bottom:8px;
+}
+.feat-card-body h2{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;
+  line-height:1.18;letter-spacing:-.01em;color:var(--ink);
+}
+.feat-card:hover .feat-card-body h2{color:var(--blue)}
+
+.home-more{padding:36px 0 20px}
+.home-cta{padding-top:0;padding-bottom:60px}
+.home-cta .row{border-top:1px solid var(--line)}
+
+@media(max-width:820px){
+  .home-feature{grid-template-columns:1fr;gap:28px;padding-bottom:36px}
+  .feat-card{grid-template-columns:96px 1fr;gap:14px}
+  .home-primary h1{font-size:clamp(26px,7vw,36px)}
+}
+@media(max-width:520px){
+  .feat-card{grid-template-columns:80px 1fr;gap:12px;padding:14px 0}
+  .feat-card-body h2{font-size:16px}
+}
