@@ -4,53 +4,111 @@ import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 
 const all = (await getCollection('interviews')).sort((a, b) => b.data.number - a.data.number);
-const featured = all.find(i => i.data.featured) ?? all[0];
-const rest = all.filter(i => i.id !== featured?.id);
+const featured = all.find((i) => i.data.featured) ?? all[0];
+const others = all.filter((i) => i.id !== featured?.id);
+const companions = others.slice(0, 2);
+const archive = others.slice(2);
 const pad = (n) => String(n).padStart(2, '0');
+const href = (i) => `/interviews/${i.id}`;
+const railLabel =
+  companions[0] && featured && companions[0].data.number > featured.data.number ? 'Latest' : 'Also new';
 ---
 <Base
-  title="The Session Notes — interviews with the people who make music work"
+  title="The Session Notes: interviews with the people who make music work"
   current="home"
   description="An interview publication about the working music world. Conversations with artists, drummers, guitarists, engineers, and industry people about how they got started and what a music career actually takes."
   image={featured?.data.heroImage}
 >
   <div class="wrap">
     {featured && (
-      <section class="hero-a">
-        <div class="hero-a-top">
-          <div class="eyb">Interview {pad(featured.data.number)} / {featured.data.role}</div>
-          <h1><a href={`/interviews/${featured.id}`}>{featured.data.title}</a></h1>
+      <section class="cover" aria-labelledby="lead-title">
+        <div class="cover-main">
+          <div class="eyb">
+            {featured.data.featured ? 'Featured' : 'Latest'} / Interview {pad(featured.data.number)} / {featured.data.role}
+          </div>
+          <h1 id="lead-title"><a href={href(featured)}>{featured.data.title}</a></h1>
+          {(featured.data.heroImage || featured.data.cardImage) && (
+            <a href={href(featured)} class="cover-photo">
+              <Image
+                src={featured.data.heroImage ?? featured.data.cardImage}
+                alt={featured.data.heroImage ? (featured.data.heroAlt ?? featured.data.title) : (featured.data.cardAlt ?? featured.data.title)}
+                widths={[640, 960, 1280]}
+                sizes="(max-width: 820px) 100vw, 700px"
+                loading="eager"
+              />
+              <span class="cover-no">{pad(featured.data.number)}</span>
+            </a>
+          )}
+          <p class="sub">{featured.data.intro}</p>
+          <div class="hero-meta">
+            Recorded {featured.data.date} · <a href={href(featured)}>Read the interview →</a>
+          </div>
         </div>
-        <div class="hero-a-grid">
-          <div class="hero-a-left">
-            {featured.data.heroImage && (
-              <a href={`/interviews/${featured.id}`} class="hero-photo">
-                <Image src={featured.data.heroImage} alt={featured.data.heroAlt ?? featured.data.title} widths={[500, 800, 1100]} sizes="(max-width: 820px) 100vw, 640px" />
+
+        {companions.length > 0 && (
+          <aside class="rail" aria-labelledby="rail-h">
+            <h2 class="rail-h" id="rail-h">{railLabel}</h2>
+            {companions.map((i) => {
+              const photo = i.data.cardImage ?? i.data.heroImage;
+              const alt = i.data.cardImage ? i.data.cardAlt : i.data.heroAlt;
+              return (
+                <a class="ri" href={href(i)}>
+                  <div class="ri-img">
+                    {photo ? (
+                      <Image src={photo} alt={alt ?? ''} widths={[180, 280]} sizes="92px" />
+                    ) : (
+                      <span class="ri-blank">{pad(i.data.number)}</span>
+                    )}
+                  </div>
+                  <div>
+                    <div class="ri-meta"><b>{pad(i.data.number)}</b> {i.data.date}</div>
+                    <h3>{i.data.title}</h3>
+                    <div class="ri-role">{i.data.role}</div>
+                    <p class="ri-intro">{i.data.intro}</p>
+                  </div>
+                </a>
+              );
+            })}
+            {featured.data.pullquote && (
+              <a class="qcard" href={href(featured)}>
+                <div class="n">{pad(featured.data.number)}</div>
+                <blockquote>{featured.data.pullquote}</blockquote>
+                {featured.data.pullquoteBy && <cite>{featured.data.pullquoteBy}</cite>}
               </a>
             )}
-            <p class="sub">{featured.data.intro}</p>
-            <div class="hero-meta">RECORDED {featured.data.date.toUpperCase()} — <a href={`/interviews/${featured.id}`}>READ THE INTERVIEW →</a></div>
-          </div>
-          {featured.data.pullquote && (
-            <div class="qcard">
-              <div class="n">{pad(featured.data.number)}</div>
-              <blockquote>{featured.data.pullquote}</blockquote>
-              {featured.data.pullquoteBy && <cite>{featured.data.pullquoteBy}</cite>}
-            </div>
-          )}
-        </div>
+          </aside>
+        )}
       </section>
     )}
 
-    <section class="arch">
-      <div class="arch-h">The Archive — {all.length} {all.length === 1 ? 'interview' : 'interviews'}</div>
-      {rest.map(i => (
-        <a class="row" href={`/interviews/${i.id}`}>
-          <div class="num">{pad(i.data.number)}</div>
-          <div class="ti">{i.data.title}</div>
-          <div class="rl">{i.data.role}</div>
-        </a>
-      ))}
+    <section class="arch" aria-labelledby="arch-h">
+      <div class="arch-top">
+        <h2 class="arch-h" id="arch-h">The archive <span>/ {archive.length} more</span></h2>
+        <a class="sec-link" href="/interviews">All {all.length} interviews →</a>
+      </div>
+      {archive.map((i) => {
+        const photo = i.data.cardImage ?? i.data.heroImage;
+        const alt = i.data.cardImage ? i.data.cardAlt : i.data.heroAlt;
+        return (
+          <a class="arow" href={href(i)}>
+            <div class="arow-img">
+              {photo ? (
+                <Image src={photo} alt={alt ?? ''} widths={[160, 240]} sizes="78px" />
+              ) : (
+                <span class="arow-blank">{pad(i.data.number)}</span>
+              )}
+            </div>
+            <div class="arow-num">{pad(i.data.number)}</div>
+            <div class="arow-main">
+              <h3>{i.data.title}</h3>
+              <p class="arow-intro">{i.data.intro}</p>
+              <p class="arow-meta"><b>{pad(i.data.number)}</b> {i.data.date}<span> · {i.data.role}</span></p>
+            </div>
+            <div class="arow-role">{i.data.role}</div>
+            <div class="arow-date">{i.data.date}</div>
+          </a>
+        );
+      })}
       <a class="row next" href="/contact">
         <div class="num">→</div>
         <div class="ti">Know someone worth interviewing?</div>
@@ -59,3 +117,266 @@ const pad = (n) => String(n).padStart(2, '0');
     </section>
   </div>
 </Base>
+
+<style>
+  .cover {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(280px, 360px);
+    gap: 44px;
+    padding: 40px 0 44px;
+    border-bottom: 2px solid var(--ink);
+    align-items: start;
+  }
+  .cover-main .eyb { margin-bottom: 14px; }
+  .cover-main h1 {
+    font-family: 'Archivo Expanded', 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-bottom: 22px;
+  }
+  .cover-main h1 a:hover { color: var(--blue); }
+  .cover-photo {
+    display: block;
+    position: relative;
+    margin-bottom: 22px;
+    background: var(--line);
+    overflow: hidden;
+  }
+  .cover-photo :global(img) {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  .cover-photo:hover :global(img) { opacity: 0.94; }
+  .cover-no {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--blue);
+    color: var(--paper);
+    font-family: 'Archivo Expanded', 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    padding: 4px 9px;
+  }
+  .cover-main .sub { max-width: 62ch; }
+  .cover-main .hero-meta { text-transform: uppercase; }
+
+  .rail {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--line);
+    padding-left: 26px;
+  }
+  .rail-h {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .ri {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 14px;
+    padding: 16px 0;
+    align-items: start;
+    border-bottom: 1px solid var(--line);
+  }
+  .ri-img {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--line);
+  }
+  .ri-img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .ri:hover .ri-img :global(img) { transform: scale(1.04); }
+  .ri-blank, .arow-blank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-family: 'Archivo Expanded', 'Archivo', sans-serif;
+    font-weight: 900;
+    color: var(--blue);
+  }
+  .ri-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mut);
+    margin-bottom: 5px;
+  }
+  .ri-meta b, .arow-meta b {
+    font-family: 'Archivo Expanded', 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: var(--blue);
+    letter-spacing: 0.02em;
+    margin-right: 6px;
+  }
+  .ri h3 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+  }
+  .ri:hover h3 { color: var(--blue); }
+  .ri-role {
+    margin-top: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--mut);
+    line-height: 1.4;
+  }
+  .ri-intro {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--soft);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+  .rail .qcard { margin-top: 18px; }
+  .rail .qcard blockquote { font-size: 21px; }
+  a.qcard:hover { background: #142ca8; }
+
+  .arch { padding: 32px 0 68px; }
+  .arch-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+  .arch-h span { color: var(--ink); }
+  .sec-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--blue);
+    padding-bottom: 2px;
+    white-space: nowrap;
+  }
+  .sec-link:hover { color: var(--blue); }
+
+  .arow {
+    display: grid;
+    grid-template-columns: 78px 46px minmax(0, 1fr) minmax(150px, 210px) 108px;
+    gap: 8px 16px;
+    align-items: center;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    color: var(--ink);
+  }
+  .arow-img {
+    width: 78px;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--line);
+  }
+  .arow-img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .arow:hover .arow-img :global(img) { transform: scale(1.04); }
+  .arow-num {
+    font-family: 'Archivo Expanded', 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--blue);
+  }
+  .arow-main h3 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+  }
+  .arow:hover .arow-main h3 { color: var(--blue); }
+  .arow-intro {
+    margin-top: 4px;
+    font-size: 14.5px;
+    line-height: 1.45;
+    color: var(--soft);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .arow-meta { display: none; }
+  .arow-role, .arow-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--mut);
+    text-align: right;
+    line-height: 1.4;
+  }
+  a:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+  @media (max-width: 980px) {
+    .arow { grid-template-columns: 72px minmax(0, 1fr); align-items: center; }
+    .arow-num, .arow-role, .arow-date { display: none; }
+    .arow-meta {
+      display: block;
+      margin-top: 6px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--mut);
+      line-height: 1.45;
+    }
+    .arow-img { width: 72px; }
+  }
+
+  @media (max-width: 820px) {
+    .cover { grid-template-columns: 1fr; gap: 28px; padding: 28px 0 32px; }
+    .rail {
+      border-left: 0;
+      padding-left: 0;
+      border-top: 2px solid var(--ink);
+      padding-top: 8px;
+    }
+    .cover-main .sub { font-size: 17px; }
+  }
+
+  @media (max-width: 560px) {
+    .cover-main h1 { font-size: 30px; }
+    .ri { grid-template-columns: 76px minmax(0, 1fr); gap: 12px; }
+    .arow { grid-template-columns: 64px minmax(0, 1fr); }
+    .arow-img { width: 64px; }
+    .arow-main h3 { font-size: 16px; }
+    .rail .qcard blockquote { font-size: 19px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ri-img :global(img), .arow-img :global(img) { transition: none; }
+  }
+</style>
