@@ -8,18 +8,21 @@ pullquote: "I'm still here. Somebody else isn't. What am I going to do with the 
 pullquoteBy: "Matt Weingast"
 featured: false
 heroImage: ../../assets/interviews/matt-weingast-hero.jpg
-heroAlt: Portrait of Matt Weingast in a grey hoodie
+heroAlt: Matt Weingast in a cowboy hat, standing at a fence at sunset
 cardImage: ../../assets/interviews/matt-weingast-card.jpg
-cardAlt: Matt Weingast with his acoustic guitar
+cardAlt: Matt Weingast in a cowboy hat, standing at a fence at sunset
 ---
 
 import SpotifyEmbed from '../../components/SpotifyEmbed.astro';
 import { Image } from 'astro:assets';
 import hero from '../../assets/interviews/matt-weingast-hero.jpg';
 import portrait from '../../assets/interviews/matt-weingast-portrait.jpg';
+import deployed from '../../assets/interviews/matt-weingast-deployed.jpg';
+import kabul from '../../assets/interviews/matt-weingast-kabul.jpg';
+import c130 from '../../assets/interviews/matt-weingast-c130.jpg';
 
 <figure class="hero-inline">
-  <Image src={hero} alt="Portrait of Matt Weingast in a grey hoodie" widths={[500, 800]} sizes="(max-width: 760px) 100vw, 720px" />
+  <Image src={hero} alt="Matt Weingast in a cowboy hat, standing at a fence at sunset" widths={[500, 800]} sizes="(max-width: 760px) 100vw, 720px" />
 </figure>
 
 Matt Weingast is an Army veteran and the songwriter behind GarryOwen Lyrics. He started writing poems and lyrics long before the military, and he kept writing during his combat deployments, sometimes choosing a poem over a letter home so he could put down what he was actually feeling. After his service, those pages went into boxes while he went to law school, built a career, and raised a family. Years later, when his mother was dying, she asked him to go back to his writing, and he promised he would. He later opened those boxes and began working with professional musicians to turn the words into songs.
@@ -39,6 +42,11 @@ The thing that eventually changed after that was my mother. She had found some o
 A couple years later, I suddenly had time on my hands, something I really did not have much of in those years. So I started opening the boxes that remained, literally and figuratively. The first new song I wrote was "Good at Getting Up."
 
 Initially, I wasn't trying to start a songwriting business. I think I was trying to keep a promise to my mother and understand some things about myself. I had gotten very good at avoiding and not dealing with some of the emotions and experiences of my past. That was my first objective. The "business" of songwriting came later.
+
+<figure class="portrait">
+  <Image src={deployed} alt="Matt while deployed" widths={[420, 800]} sizes="420px" />
+  <figcaption>Matt while deployed</figcaption>
+</figure>
 
 **You've said you're a songwriter, not a performer. How does a song go from words on a page to a finished track, and who do you bring in for vocals and production?**
 
@@ -73,6 +81,11 @@ Now there are times where I am even more intentionally doing that. One of my lat
 
 I am definitely getting better at understanding sync songwriting and the needs of music supervisors, but I don't expect to change who I am as an artist. I am a storyteller, and my unique and authentic perspective is the source of my art. I don't see myself straying far from that and trying to write songs specifically for sync.
 
+<figure>
+  <Image src={kabul} alt="Matt in Kabul, 2001" widths={[500, 900]} sizes="(max-width: 760px) 100vw, 720px" />
+  <figcaption>Matt in Kabul, 2001</figcaption>
+</figure>
+
 <div class="statement">The broader idea is pretty universal: I'm still here. Somebody else isn't. What am I going to do with the time I've been given?</div>
 
 <SpotifyEmbed id="5xXIONiVykcGMP5jbgeKdj" type="track" title="GarryOwen Lyrics - Bonus Time" />
@@ -102,6 +115,11 @@ The original version of "Running Home" was all about my view of what home has al
 Then, as I was working with musicians to produce the song, I was also learning more about sync. I knew the second verse of the song, which was important to my story, was also very specific to the story of a soldier coming home. I could not fit all my original lyrics in the final version of the song. So it became a very easy switch to make two versions of the song, as it really only swapped out a verse.
 
 At the same time, I knew "Running Home" was rather unique in that it would resonate well with families whose kids play baseball, and particularly girls softball. I love music and I have never heard a song about girls softball, a song that says, "She's calling pitches, spitting seeds." So I wanted to give the song a chance to be more easily used for sync.
+
+<figure>
+  <Image src={c130} alt="Matt on a C-130 to Pakistan and Afghanistan, November 2001" widths={[500, 900]} sizes="(max-width: 760px) 100vw, 720px" />
+  <figcaption>Matt on a C-130 to Pakistan and Afghanistan, November 2001</figcaption>
+</figure>
 
 <SpotifyEmbed id="2XYDEFoabreuhYUmYs8VCj" type="track" title="GarryOwen Lyrics - Running Home" />
 
