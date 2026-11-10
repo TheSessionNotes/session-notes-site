@@ -62,6 +62,7 @@ const schema = type === 'article'
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/favicon.svg" />
   <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="The Session Notes" href="/rss.xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800;900&family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -80,6 +81,7 @@ const schema = type === 'article'
         <a href="/interviews" aria-current={current === 'interviews' ? 'page' : undefined}>Interviews</a>
         <a href="/about" aria-current={current === 'about' ? 'page' : undefined}>About</a>
         <a href="/contact" aria-current={current === 'contact' ? 'page' : undefined}>Contact</a>
+        <a href="/subscribe" aria-current={current === 'subscribe' ? 'page' : undefined}>Subscribe</a>
       </nav>
     </div>
   </header>
@@ -89,7 +91,7 @@ const schema = type === 'article'
   <div class="wrap">
     <footer>
       <span>The Session Notes</span>
-      <span>An interview project · 2026</span>
+      <span><a href="/subscribe">Subscribe</a> · An interview project · 2026</span>
     </footer>
   </div>
 </body>
