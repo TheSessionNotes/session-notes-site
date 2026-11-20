@@ -1,6 +1,6 @@
 ---
-// Usage: <YouTubeEmbed id="dxDhYgfO7VQ" start={59} title="..." />
-const { id, start, title = 'YouTube video player' } = Astro.props;
+// Usage: <YouTubeEmbed id="dxDhYgfO7VQ" start={59} title="..." caption="..." />
+const { id, start, title = 'YouTube video player', caption } = Astro.props;
 const src = `https://www.youtube.com/embed/${id}${start ? `?start=${start}` : ''}`;
 ---
 <div class="yt-embed">
@@ -13,8 +13,10 @@ const src = `https://www.youtube.com/embed/${id}${start ? `?start=${start}` : ''
     allowfullscreen
     loading="lazy"
   ></iframe>
+  {caption && <p class="yt-caption">{caption}</p>}
 </div>
 <style>
   .yt-embed{margin:34px 0;}
   .yt-embed iframe{width:100%;aspect-ratio:16/9;height:auto;display:block;border-radius:2px;}
+  .yt-caption{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut);margin:10px 0 0;}
 </style>
