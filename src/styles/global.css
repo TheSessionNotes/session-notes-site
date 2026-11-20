@@ -97,6 +97,9 @@ footer{padding:36px 0;border-top:1px solid var(--line);font-family:'IBM Plex Mon
 .prose h2{font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.1;letter-spacing:-.01em;margin:40px 0 14px}
 .prose .hero-inline{margin:30px 0}
 .prose .hero-inline img{width:100%;height:auto;display:block;border-radius:2px;aspect-ratio:16/9;object-fit:cover}
+.prose .hero-inline.hero-full img{aspect-ratio:auto;object-fit:initial}
+.prose .hero-inline.hero-square{max-width:600px;margin-left:auto;margin-right:auto}
+.prose .hero-inline.hero-square img{aspect-ratio:1/1;object-fit:contain;background:#EEE}
 
 .hero-photo{display:block;margin:22px 0 24px}
 .hero-photo img{width:100%;height:auto;display:block;border-radius:2px;aspect-ratio:16/10;object-fit:cover}
